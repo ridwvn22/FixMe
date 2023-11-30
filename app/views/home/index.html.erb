@@ -1,0 +1,10 @@
+<h1>WELCOME TO FixMe</h1>
+<% if user_signed_in?%>
+    Welcome, <%= current_user.username%>! </div>
+  <%=button_to "Sign out", destroy_user_session_path, method: :delete%>
+  <%= link_to 'View My Habits', habits_path %>
+  
+
+<% else %>
+  <%= button_to "Sign in", new_user_session_path%>
+<% end %>
