@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
-    
-    def index
+     def index
+        @reminders = Reminder.all
     end
-
 end

@@ -1,0 +1,28 @@
+<h1>Reminders</h1>
+
+<%= link_to 'New Reminder', habit_reminders_path %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Frequency</th>
+      <th>Habit</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reminders.each do |reminder| %>
+      <tr>
+        <td><%= link_to reminder.title, reminder %></td>
+        <td><%= reminder.frequency %></td>
+        <td><%= reminder.habit.name %></td>
+        <td>
+          <%= link_to 'Show', reminder %>
+          <%= link_to 'Edit', edit_reminder_path(reminder)%>
+          <%= link_to 'Delete', reminder, method: :delete, data: { confirm: 'Are you sure?' }%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

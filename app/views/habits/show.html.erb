@@ -1,0 +1,21 @@
+<h1><%= @habit.name %></h1>
+
+<p><strong>Description:</strong> <%= @habit.description %></p>
+<p><strong>Duration:</strong> <%= @habit.duration %> days</p>
+<p><strong>Status:</strong> <%= @habit.status %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_habit_reminder_path(@habit, @reminder) %></li>
+  <li><%= link_to "Delete", habit_reminder_path(@habit), data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+  } %></li>
+</ul>
+
+<% if @chart_url %>
+  <img src="<%= @chart_url %>" alt="Habit Chart">
+<% else %>
+  <p>Chart not available</p>
+<% end %>
+
+<%= link_to 'Back', habits_path %>

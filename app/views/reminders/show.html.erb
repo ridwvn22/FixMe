@@ -1,0 +1,6 @@
+<h1><%= @reminder.title %></h1>
+
+<p><strong>Frequency:</strong> <%= @reminder.frequency %></p>
+<p><strong>Habit:</strong> <%= @reminder.habit.name %></p>
+
+<%= link_to 'Back to Reminders', habit_reminder_path %>
