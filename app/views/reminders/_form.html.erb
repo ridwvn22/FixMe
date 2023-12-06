@@ -6,7 +6,7 @@
   
     <div class="field">
       <%= form.label :frequency %>
-      <%= form.text_field :frequency %>
+      <%= form.select :frequency, Reminder.frequencies.keys.map { |f| [f.humanize, f] } %>
     </div>
   
     <div class="field">

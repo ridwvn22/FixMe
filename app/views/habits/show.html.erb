@@ -5,15 +5,15 @@
 <p><strong>Status:</strong> <%= @habit.status %></p>
 
 <ul>
-  <li><%= link_to "Edit", edit_habit_reminder_path(@habit, @reminder) %></li>
-  <li><%= link_to "Delete", habit_reminder_path(@habit), data: {
+  <li><%= link_to "Edit", habit_path(@habit) %></li>
+  <li><%= link_to "Delete", habit_path(@habit), data: {
     turbo_method: :delete,
     turbo_confirm: "Are you sure?"
   } %></li>
 </ul>
 
-<% if @chart_url %>
-  <img src="<%= @chart_url %>" alt="Habit Chart">
+<% if @chart %>
+  <img src="<%= @chart %>" alt="Habit Chart Image">
 <% else %>
   <p>Chart not available</p>
 <% end %>

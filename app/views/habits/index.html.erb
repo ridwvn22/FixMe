@@ -1,61 +1,39 @@
 <h1>All Habits</h1>
 
-<h2>New Habits</h2>
 <%= link_to 'New Habit', new_habit_path %>
-<table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Duration</th>
-        <th>Status</th>
-        <!-- Add more headers as needed -->
-      </tr>
-    </thead>
-    <tbody>
-      <%= render @new_habits %>
-    </tbody>
-  </table>
-<ul>
-  <% @new_habits.each do |habit| %>
-    <li>
-      <strong>Name:</strong> <%= habit.name %>
-      <br>
-      <strong>Description:</strong> <%= habit.description %>
-      <br>
-      <strong>Duration:</strong> <%= habit.duration %>
-      <br>
-      <strong>Status:</strong> <%= habit.status %>
-      <!-- Add more details as needed -->
-    </li>
-  <% end %>
-</ul>
 
-<h2>Current Habits</h2>
- <%= render @current_habits %>
-<ul>
-  <% @current_habits.each do |habit| %>
-    <li>
-      <strong>Name:</strong> <%= habit.name %>
-      <br>
-      <strong>Description:</strong> <%= habit.description %>
-      <br>
-      <strong>Duration:</strong> <%= habit.duration %>
-      <br>
-      <strong>Status:</strong> <%= habit.status %>
-      <!-- Add more details as needed -->
-    </li>
-
+<% if @new_habits.any? %>
+  <h2>New Habits</h2>
   <ul>
-  <% if @new_habits.any? %>
-    <%= render @new_habits %>
-  <% else %>
-    <p>No new habits yet.</p>
-  <% end %>
+    <% @new_habits.each do |habit| %>
+      <li>
+        <strong>Name:</strong> <%= habit.name %><br>
+        <strong>Description:</strong> <%= habit.description %><br>
+        <strong>Duration:</strong> <%= habit.duration %><br>
+        <strong>Status:</strong> <%= habit.status %><br>
+        <%= form_for habit, url: mark_as_current_habit_path(habit), method: :post do |f| %>
+          <%= f.button 'Make Current', type: 'submit', class: 'btn btn-primary' %>
+        <% end %>
+      </li>
+    <% end %>
   </ul>
+<% else %>
+  <p>No new habits yet.</p>
+<% end %>
 
-  <% end %>
+<% if @current_habits.any? %>
+  <h2>Current Habits</h2>
+  <ul>
+    <% @current_habits.each do |habit| %>
+      <li>
+        <strong>Name:</strong> <%= habit.name %><br>
+        <strong>Description:</strong> <%= habit.description %><br>
+        <strong>Duration:</strong> <%= habit.duration %><br>
+        <%= link_to 'Reminders', habit_reminders_path(habit) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No current habits yet.</p>
+<% end %>
 
-
-
-      

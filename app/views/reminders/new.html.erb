@@ -1,5 +1,5 @@
-<h1><%= action_name.capitalize %> Reminder</h1>
+<h1>New Reminder</h1>
 
-<%= render 'form' %>
+<%= render 'form', reminder: @reminder %>
 
-<%= link_to 'Back to Reminders', new_habit_reminder_path %>
+<%= link_to 'Back', habit_reminders_path(@habit) %>

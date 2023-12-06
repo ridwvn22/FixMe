@@ -4,7 +4,7 @@ class CreateHabits < ActiveRecord::Migration[7.1]
       t.string :name
       t.string :description
       t.timestamp :duration
-      t.references :users, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
       t.string :status
       
 

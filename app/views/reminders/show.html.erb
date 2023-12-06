@@ -1,6 +1,14 @@
-<h1><%= @reminder.title %></h1>
-
+<h1> Reminder</h1>
 <p><strong>Frequency:</strong> <%= @reminder.frequency %></p>
 <p><strong>Habit:</strong> <%= @reminder.habit.name %></p>
 
-<%= link_to 'Back to Reminders', habit_reminder_path %>
+
+<ul>
+  <li><%= link_to "Edit", edit_habit_reminder_path(@habit, @reminder) %></li>
+  <li><%= link_to "Delete", habit_reminder_path(@habit), data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+  } %></li>
+</ul>
+
+<%= link_to 'Back', habit_reminder_path(@habit)%>

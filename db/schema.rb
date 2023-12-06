@@ -18,19 +18,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_171919) do
     t.string "name"
     t.string "description"
     t.datetime "duration", precision: nil
-    t.bigint "users_id", null: false
+    t.bigint "user_id", null: false
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_habits_on_users_id"
+    t.index ["user_id"], name: "index_habits_on_user_id"
   end
 
   create_table "reminders", force: :cascade do |t|
-    t.datetime "frequency", precision: nil
-    t.bigint "habits_id", null: false
+    t.string "frequency"
+    t.bigint "habit_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["habits_id"], name: "index_reminders_on_habits_id"
+    t.index ["habit_id"], name: "index_reminders_on_habit_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,6 +48,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_171919) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "habits", "users", column: "users_id"
-  add_foreign_key "reminders", "habits", column: "habits_id"
+  add_foreign_key "habits", "users"
+  add_foreign_key "reminders", "habits"
 end

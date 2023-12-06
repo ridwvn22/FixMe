@@ -72,3 +72,7 @@ end
 gem "devise", "~> 4.9"
 
 gem 'httparty'
+
+gem "simple_calendar", "~> 2.4"
+
+

@@ -1,10 +1,13 @@
 class Habit < ApplicationRecord
 
-    enum status: {
-    new_habit: 'new_habit',
-    current: 'current',
-    not_done: 'not_done'
-  }
+    belongs_to :user
 
-    belongs_to :users, class_name: 'User', foreign_key: 'users_id'
+    enum status: {
+        new_habit: 'new_habit',
+        current: 'current',
+        not_done: 'not_done'
+    }
+
+    has_many :reminders
+    
 end
