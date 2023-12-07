@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # devise gem config
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.assets.enabled = true
+  config.assets.version = '1.0'
+
 end

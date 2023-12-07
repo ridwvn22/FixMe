@@ -1,10 +1,20 @@
 <h1>WELCOME TO FixMe</h1>
-<% if user_signed_in?%>
-    Welcome, <%= current_user.username%>! </div>
-  <%=button_to "Sign out", destroy_user_session_path, method: :delete%>
-  <%= link_to 'View My Habits', habits_path %>
-  <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FChicago&src=cmRhaGlycmlAZ21haWwuY29t&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=Y19jbGFzc3Jvb204MmUyYmJmM0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%2333B679&color=%230B8043&color=%23c26401" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+<p>Welcome, <%= current_user.email %>!</p>
+<%= link_to "Sign out", destroy_user_session_path, method: :delete %>
 
-<% else %>
-  <%= button_to "Sign in", new_user_session_path%>
-<% end %>
+<h2>My Calendar</h2>
+
+<h2>My Habits</h2>
+<ul>
+  <% @habits.each do |habit| %>
+    <li><%= link_to habit.name, habit_path(habit) %></li>
+  <% end %>
+</ul>
+
+<h2>My Reminders</h2>
+<ul>
+  <% @reminders.each do |reminder| %>
+    <li><%= link_to reminder.title, habit_reminder_path(reminder.habit, reminder) %></li>
+  <% end %>
+</ul>
+

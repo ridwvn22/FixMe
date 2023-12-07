@@ -1,2 +1,7 @@
 class HomeController < ApplicationController
-end
+    def index
+        @habits = Habit.all
+        @reminders = Reminder.includes(:habit).all
+      end
+    end
+    

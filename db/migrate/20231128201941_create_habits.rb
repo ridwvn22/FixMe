@@ -6,6 +6,8 @@ class CreateHabits < ActiveRecord::Migration[7.1]
       t.timestamp :duration
       t.references :user, null: false, foreign_key: true
       t.string :status
+
+      t.references :calendar, polymorphic: true, null: true
       
 
       t.timestamps

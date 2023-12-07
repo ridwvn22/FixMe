@@ -6,7 +6,9 @@ ruby "3.2.0"
 gem "rails", "~> 7.1.2"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+gem "sprockets-rails", '>=3.4.2'
+
+gem 'sass-rails', '>= 6'
 
 # Use sqlite3 as the database for Active Record
 #gem "sqlite3", "~> 1.4"
@@ -73,6 +75,9 @@ gem "devise", "~> 4.9"
 
 gem 'httparty'
 
-gem "simple_calendar", "~> 2.4"
+# gem 'fullcalendar-rails'
+
+# gem 'momentjs-rails', '2.29.4.1'
+
 
 

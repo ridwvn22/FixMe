@@ -11,10 +11,13 @@ Rails.application.routes.draw do
 
   resources :habits do
     resources :reminders
+    resources :logs, only: [:new, :create, :index, :edit, :update, :destroy]  
     member do
       post 'mark_as_current'
+    end
+
+    member do
+      get 'calendar'
+    end
   end
 end
-    resources :calendars, only: [:index]
-end
-

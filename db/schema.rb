@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_171919) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_07_174959) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "calendars", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "habits", force: :cascade do |t|
     t.string "name"
@@ -22,14 +31,32 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_171919) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "calendar_type"
+    t.bigint "calendar_id"
+    t.index ["calendar_type", "calendar_id"], name: "index_habits_on_calendar"
     t.index ["user_id"], name: "index_habits_on_user_id"
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "habit_id", null: false
+    t.date "entry_date"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["habit_id"], name: "index_logs_on_habit_id"
+    t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
   create_table "reminders", force: :cascade do |t|
     t.string "frequency"
     t.bigint "habit_id", null: false
+    t.string "calendar_type"
+    t.bigint "calendar_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
+    t.index ["calendar_type", "calendar_id"], name: "index_reminders_on_calendar"
     t.index ["habit_id"], name: "index_reminders_on_habit_id"
   end
 
@@ -49,5 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_171919) do
   end
 
   add_foreign_key "habits", "users"
+  add_foreign_key "logs", "habits"
+  add_foreign_key "logs", "users"
   add_foreign_key "reminders", "habits"
 end

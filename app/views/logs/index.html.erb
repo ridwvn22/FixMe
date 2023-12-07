@@ -1,0 +1,15 @@
+<h1>Log Entries</h1>
+
+<% @logs.each do |log| %>
+  <div>
+    <strong>Entry Date:</strong> <%= log.entry_date %>
+    <br>
+    <strong>Notes:</strong> <%= log.notes %>
+    <br>
+    <%= link_to 'Edit', edit_habit_log_path(@habit, log) %>
+    <%= link_to 'Delete', habit_log_path(@habit, log), method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+  <hr>
+<% end %>
+
+<%= link_to 'Back', habit_path(@habit) %>

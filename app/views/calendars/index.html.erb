@@ -1,6 +1,10 @@
-<h1>Interactive Calendar</h1>
+<h1>Calendar Page</h1>
 
 <div id="calendar"></div>
+
+<%= content_for :head do %>
+  <%= javascript_pack_tag 'calendar.js' %>
+<% end %>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

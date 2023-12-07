@@ -7,6 +7,8 @@ class RemindersController < ApplicationController
     end
   
     def show
+        @reminder = Reminder.find(params[:id])
+        @reminder_date = @reminder.date
     end
   
     def new
@@ -17,12 +19,12 @@ class RemindersController < ApplicationController
         @habit = Habit.find(params[:habit_id])
         @reminder = @habit.reminders.new(reminder_params)
       
-      if @reminder.save
-        redirect_to habit_reminder_path(@habit, @reminder), notice: 'Reminder was created.'
-      else
-        render :new
-      end
-    end
+        if @reminder.save
+          redirect_to habit_reminder_path(@habit, @reminder), notice: 'Reminder was created.'
+        else
+          render :new
+        end
+      end      
   
     def edit
     end
@@ -37,22 +39,21 @@ class RemindersController < ApplicationController
   
     def destroy
       @reminder.destroy
-  
       redirect_to habit_reminders_path(@habit), notice: 'Reminder was deleted.'
     end
   
     private
-
+  
     def set_habit
-        @habit = Habit.find(params[:habit_id])
+      @habit = Habit.find(params[:habit_id])
     end
-
+  
     def set_reminder
-        @reminder = Reminder.find(params[:id])
+      @reminder = Reminder.find(params[:id])
     end
-
+  
     def reminder_params
-      params.require(:reminder).permit(:frequency, :habit_id)
+        params.require(:reminder).permit(:frequency, :habit_id, :calendar_type, :description)
     end
   end
   

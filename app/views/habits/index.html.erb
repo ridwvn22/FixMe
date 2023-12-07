@@ -1,5 +1,11 @@
 <h1>All Habits</h1>
 
+<div id="calendar"></div>
+
+<%= content_for :head do %>
+  <%=  'calendar.js' %>
+<% end %>
+
 <%= link_to 'New Habit', new_habit_path %>
 
 <% if @new_habits.any? %>

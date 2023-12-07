@@ -5,9 +5,17 @@ class HabitsController < ApplicationController
     before_action :set_habit, only: [:show, :edit, :update, :destroy]
   
     def index
-      @new_habits = Habit.where(status: :new_habit)
-      @current_habits = Habit.where(status: :current)
-      @habits = Habit.all
+        @habits = current_user.habits
+        @reminders = current_user.habits.joins(:reminders)
+
+        @new_habits = Habit.where(status: :new_habit)
+        @current_habits = Habit.where(status: :current)
+        @habits = Habit.all
+
+      respond_to do |format|
+        format.html
+        format.json { render json: @events }
+      end
     end
   
    def show
@@ -50,7 +58,7 @@ class HabitsController < ApplicationController
   
     def create
       @habit = current_user.habits.build(habit_params)
-
+  
       if @habit.save
         redirect_to @habit, notice: 'Habit was created.'
       else
@@ -70,18 +78,22 @@ class HabitsController < ApplicationController
       @habit.destroy
       redirect_to habits_path, notice: 'Habit was deleted.'
     end
-
+  
     def mark_as_current
-        @habit = Habit.find(params[:id])
-    
-        if @habit.update(status: :current)
-          redirect_to habits_path, notice: 'This habit is now a current habit.'
-        else
-          redirect_to habits_path, alert: 'You have failed to update habit status.'
-        end
+      @habit = Habit.find(params[:id])
+  
+      if @habit.update(status: :current)
+        redirect_to habits_path, notice: 'This habit is now a current habit.'
+      else
+        redirect_to habits_path, alert: 'You have failed to update habit status.'
       end
+    end
   
     private
+  
+    def habit_events
+      (current_user.habits + current_user.habits.joins(:reminders)).map(&:to_event)
+    end
   
     def set_habit
       @habit = Habit.find(params[:id])
@@ -91,6 +103,4 @@ class HabitsController < ApplicationController
       params.require(:habit).permit(:name, :description, :duration, :status)
     end
   end
-  
-  
   

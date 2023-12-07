@@ -6,4 +6,5 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :username, presence: true
 
   has_many :habits
+  has_many :logs
 end

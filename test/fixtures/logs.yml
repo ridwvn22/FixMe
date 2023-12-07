@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  habit: one
+  entry_date: 2023-12-07
+  notes: MyText
+
+two:
+  user: two
+  habit: two
+  entry_date: 2023-12-07
+  notes: MyText
