@@ -75,9 +75,8 @@ gem "devise", "~> 4.9"
 
 gem 'httparty'
 
-# gem 'fullcalendar-rails'
+gem "simple_calendar"
 
-# gem 'momentjs-rails', '2.29.4.1'
-
+gem 'bootstrap'
 
 

@@ -1,10 +1,10 @@
 class LogsController < ApplicationController
-    before_action :set_habit, only: [:new, :create, :index, :destroy]
-
+    before_action :set_habit, only: [:new, :create, :index, :edit, :update, :destroy]
+  
     def index
-        @logs = @habit.logs
-      end
-    
+      @logs = @habit.logs
+    end
+  
     def new
       @log = Log.new
     end
@@ -13,30 +13,30 @@ class LogsController < ApplicationController
       @log = @habit.logs.new(log_params.merge(user: current_user))
   
       if @log.save
-        redirect_to @habit, notice: 'Log entry was created.'
+        redirect_to habit_logs_path(@habit), notice: 'Log entry was created.'
       else
         render :new
       end
     end
-
+  
     def edit
-        @log = Log.find(params[:id])
+      @log = @habit.logs.find(params[:id])
     end
-    
+  
     def update
-        @log = Log.find(params[:id])
-    
-        if @log.update(log_params)
-          redirect_to habit_logs_path(@habit), notice: 'Log entry was successfully updated.'
-        else
-          render :edit
-        end
+      @log = @habit.logs.find(params[:id])
+  
+      if @log.update(log_params)
+        redirect_to habit_logs_path(@habit), notice: 'Log entry was successfully updated.'
+      else
+        render :edit
+      end
     end
-
+  
     def destroy
-        @log = @habit.logs.find(params[:id])
-        @log.destroy
-        redirect_to habit_logs_path(@habit), notice: 'Log entry was successfully destroyed.'
+      @log = @habit.logs.find(params[:id])
+      @log.destroy
+      redirect_to habit_logs_path(@habit), notice: 'Log entry was successfully destroyed.'
     end
   
     private
@@ -50,4 +50,3 @@ class LogsController < ApplicationController
     end
   end
   
-

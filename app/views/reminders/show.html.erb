@@ -1,5 +1,3 @@
-<!-- app/views/reminders/show.html.erb -->
-
 <div style="margin: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
   <h1 style="color: #333;">Reminder Details</h1>
   
@@ -7,16 +5,26 @@
   <p><strong>Habit:</strong> <%= @reminder.habit.name %></p>
 
   <ul style="list-style-type: none; padding: 0;">
-    <li style="display: inline-block; margin-right: 10px;">
-      <%= link_to "Edit", edit_habit_reminder_path(@habit, @reminder), class: 'btn btn-primary' %>
-    </li>
-    <li style="display: inline-block;">
-      <%= link_to "Delete", habit_reminder_path(@habit), method: :delete, data: {
-        turbo_method: :delete,
-        turbo_confirm: "Are you sure?",
-      }, class: 'btn btn-danger' %>
-    </li>
-  </ul>
+  <li style="display: inline-block; margin-right: 10px;">
+    <%= link_to "Edit", edit_habit_reminder_path(@reminder.habit, @reminder), class: 'btn btn-primary' %>
+  </li>
+  <li style="display: inline-block;">
+    <%= link_to "Delete", habit_reminders_path(@reminder.habit, @reminder), method: :delete, data: {
+      turbo_method: :delete,
+      turbo_confirm: "Are you sure?",
+    }, class: 'btn btn-danger' %>
+  </li>
+</ul>
+
+
+  <%= month_calendar(events: @reminder_events) do |date, events| %>
+    <%= date %>
+  
+    <% events.each do |event| %>
+      <%= render partial: 'event', locals: { event: event } %>
+    <% end %>
+  <% end %>
+  
 
   <%= link_to 'Back', habit_reminders_path(@habit), class: 'btn btn-secondary' %>
 </div>

@@ -7,4 +7,5 @@ class User < ApplicationRecord
 
   has_many :habits
   has_many :logs
+  has_many :reminders
 end

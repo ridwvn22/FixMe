@@ -1,23 +1,12 @@
 <h1>Calendar Page</h1>
 
-<div id="calendar"></div>
+<%= calendar_for @events, attribute: :start_time do |calendar| %>
+    <%= calendar.render do |date, events| %>
+      <%= date %>
+      <%= events %>
+    <% end %>
+  <% end %>
 
-<%= content_for :head do %>
-  <%= javascript_pack_tag 'calendar.js' %>
-<% end %>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      events: [
-        { title: 'Habit 1', start: '2023-05-12' }
-      ]
-    });
-    calendar.render();
-  });
-</script>
-
-<%= link_to 'View Calendar', calendars_path %>
+<%= link_to 'View Calendar', calendars_habit_path %> %>
 

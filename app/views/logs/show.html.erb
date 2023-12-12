@@ -1,22 +1,29 @@
 <h2>Log Entries</h2>
-<%= link_to 'New Log Entry', new_habit_log_path(@habit) %>
-<%= link_to 'View Logs', habit_logs_path(@habit) %>
+
+<%= link_to 'New Log Entry', new_habit_log_path(@habit), class: 'btn btn-primary' %>
+<%= link_to 'View Logs', habit_logs_path(@habit), class: 'btn btn-secondary' %>
 
 <% if @habit.logs.any? %>
   <% @habit.logs.each do |log| %>
-    <div>
+    <div class="log-entry-container">
       <h3>Log Entry</h3>
-      <strong>Entry Date:</strong> <%= log.entry_date %>
-      <br>
-      <strong>Notes:</strong> <%= log.notes %>
-      <br>
-      <%= link_to 'Edit', edit_habit_log_path(@habit, log) %>
-      <%= link_to 'Delete', habit_log_path(@habit, log), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <strong>Entry Date:</strong> <%= log.entry_date %><br>
+      <strong>Notes:</strong> <%= log.notes %><br>
+      
+      <%= link_to 'Edit', edit_habit_log_path(@habit, log), class: 'btn btn-sm btn-primary' %>
+      <%= link_to 'Delete', habit_log_path(@habit, log), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
     </div>
-    <hr>
+    <hr class="log-entry-divider">
   <% end %>
 <% else %>
   <p>No log entries available for this habit.</p>
 <% end %>
 
-<%= link_to 'Back', habits_path %>
+<%= month_calendar(events: @log_events) do |date, events| %>
+  <%= date %>
+  <% events.each do |event| %>
+    <%= render partial: 'event', locals: { event: event } %>
+  <% end %>
+<% end %>
+
+<%= link_to 'Back', habits_path, class: 'btn btn-secondary btn-back' %>

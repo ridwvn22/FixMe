@@ -19,7 +19,7 @@
         </td>
         <td>
           <%= link_to 'Edit', edit_habit_reminder_path(reminder.habit, reminder), class: 'btn btn-sm btn-primary' %>
-          <%= link_to 'Delete', habit_reminder_path(reminder.habit, reminder), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+          <%= link_to 'Delete', habit_reminder_path(@habit, reminder), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
         </td>
       </tr>
     <% end %>

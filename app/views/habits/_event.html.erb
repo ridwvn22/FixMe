@@ -1,0 +1,14 @@
+<% @habit_events.each do |event| %>
+    <div class="event">
+      <strong>Title:</strong> <%= event[:title] %><br>
+      <strong>Start:</strong> <%= event[:start] %><br>
+    </div>
+  
+    <% if event.is_a?(Hash) %>
+      <p><strong>Title:</strong> <%= event[:title] %></p>
+      <p><strong>Start Time:</strong> <%= event[:start] %></p>
+    <% else %>
+      <!-- Render other attributes for non-Hash events -->
+    <% end %>
+  <% end %>
+  

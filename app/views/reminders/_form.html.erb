@@ -1,7 +1,7 @@
 <%= form_with model: [@habit, @reminder] do |form| %>
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
   </div>
 
   <div class="field">
@@ -20,11 +20,11 @@
   </div>
 
   <div class="field">
-  <%= form.label :calendar_type %>
-  <%= form.text_field :calendar_type %>
-</div>
+    <%= form.label :calendar_date %>
+    <%= form.date_field :calendar_date %>
+  </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="actions">
+    <%= form.submit 'Create Reminder' %>
   </div>
 <% end %>

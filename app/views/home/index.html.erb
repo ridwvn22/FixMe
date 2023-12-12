@@ -1,20 +1,18 @@
-<h1>WELCOME TO FixMe</h1>
-<p>Welcome, <%= current_user.email %>!</p>
-<%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<h1>FixMe</h1>
 
-<h2>My Calendar</h2>
+<div class="container">
+  <p class="welcome-message">Welcome to FixMe: Your personalized habit tracker for a happier life, empowering you to take control of your routines and achieve your goals with ease. Explore the Habits page to seamlessly track your daily activities. Set reminders to stay on top of your habits, view your progress on the Calendar, and keep a detailed log of your journey. FixMe is here to empower you every step of the way.</p>
+  
+</div>
 
-<h2>My Habits</h2>
-<ul>
-  <% @habits.each do |habit| %>
-    <li><%= link_to habit.name, habit_path(habit) %></li>
-  <% end %>
-</ul>
+</body>
+</html>
 
-<h2>My Reminders</h2>
-<ul>
-  <% @reminders.each do |reminder| %>
-    <li><%= link_to reminder.title, habit_reminder_path(reminder.habit, reminder) %></li>
-  <% end %>
-</ul>
+
+
 

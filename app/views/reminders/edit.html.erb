@@ -1,5 +1,9 @@
-<h1>Edit Reminder</h1>
+<%= form_with model: [@habit, @reminder], local: true do |form| %>
+    <h1>Edit Reminder</h1>
 
-<%= render "form", reminder: @reminder %>
+    <%= render "form", reminder: @reminder %>
 
-<%= link_to 'Back', habit_reminders_path %>
+    <%= link_to 'Back', habit_reminders_path %>
+    <%= form.submit 'Update Reminder' %>
+  <% end %>
+  
