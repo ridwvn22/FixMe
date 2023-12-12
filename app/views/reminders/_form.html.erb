@@ -1,21 +1,30 @@
 <%= form_with model: [@habit, @reminder] do |form| %>
-    <div class="field">
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :frequency %>
-      <%= form.select :frequency, Reminder.frequencies.keys.map { |f| [f.humanize, f] } %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :habit_id %>
-      <%= form.collection_select(:habit_id, Habit.all, :id, :name, prompt: 'Select a habit') %>
-    </div>
-  
-    <div>
-      <%= form.submit %>
-    </div>
-  <% end %>
-  
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :frequency %>
+    <%= form.select :frequency, Reminder.frequencies.keys.map { |f| [f.humanize, f] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :habit_id %>
+    <%= form.collection_select(:habit_id, Habit.all, :id, :name, prompt: 'Select a habit') %>
+  </div>
+
+  <div class="field">
+    <%= form.label :calendar_date %>
+    <%= form.date_field :calendar_date %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Create Reminder' %>
+  </div>
+<% end %>

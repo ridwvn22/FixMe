@@ -1,0 +1,31 @@
+<!-- index.html.erb -->
+
+<div class="container">
+  <h1 class="page-title">Log Entries</h1>
+
+  <div class="log-table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Notes</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @logs.each do |log| %>
+          <tr>
+            <td><%= log.notes %></td>
+            <td><%= log.entry_date.strftime('%B %e, %Y %l:%M %p') %></td>
+            <td>
+              <%= link_to 'Edit', edit_habit_log_path(@habit, log), class: 'btn btn-sm btn-primary' %>
+              <%= link_to 'Delete', habit_log_path(@habit, log), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= link_to 'Back', habits_path, class: 'btn btn-secondary btn-back' %>
+</div>

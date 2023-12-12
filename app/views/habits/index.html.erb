@@ -1,39 +1,74 @@
-<h1>All Habits</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Habits - FixMe Habit Tracker</title>
+  <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
 
-<%= link_to 'New Habit', new_habit_path %>
+<div class="container">
+  <header>
+    <h1>My Habits</h1>
+    <%= link_to 'New Habit', new_habit_path, class: 'btn btn-success' %>
+  </header>
 
-<% if @new_habits.any? %>
-  <h2>New Habits</h2>
-  <ul>
-    <% @new_habits.each do |habit| %>
-      <li>
-        <strong>Name:</strong> <%= habit.name %><br>
-        <strong>Description:</strong> <%= habit.description %><br>
-        <strong>Duration:</strong> <%= habit.duration %><br>
-        <strong>Status:</strong> <%= habit.status %><br>
-        <%= form_for habit, url: mark_as_current_habit_path(habit), method: :post do |f| %>
-          <%= f.button 'Make Current', type: 'submit', class: 'btn btn-primary' %>
+  <section class="new-habits-section">
+    <% if @new_habits.any? %>
+      <h2>New Habits</h2>
+      <ul class="habit-list">
+        <% @new_habits.each do |habit| %>
+          <li class="habit-item">
+            <strong>Name:</strong> <%= habit.name %><br>
+            <strong>Description:</strong> <%= habit.description %><br>
+            <strong>Duration:</strong> <%= habit.duration %><br>
+            <strong>Status:</strong> <%= habit.status %><br>
+            <%= form_for habit, url: mark_as_current_habit_path(habit), method: :post, class: 'mark-current-form' do |f| %>
+              <%= f.button 'Make Current', type: 'submit', class: 'btn btn-secondary' %>
+            <% end %>
+          </li>
         <% end %>
-      </li>
+      </ul>
+    <% else %>
+      <p>No new habits yet.</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>No new habits yet.</p>
-<% end %>
+  </section>
 
-<% if @current_habits.any? %>
-  <h2>Current Habits</h2>
-  <ul>
-    <% @current_habits.each do |habit| %>
-      <li>
-        <strong>Name:</strong> <%= habit.name %><br>
-        <strong>Description:</strong> <%= habit.description %><br>
-        <strong>Duration:</strong> <%= habit.duration %><br>
-        <%= link_to 'Reminders', habit_reminders_path(habit) %>
-      </li>
+  <section class="current-habits-section">
+    <% if @current_habits.any? %>
+      <h2>Current Habits</h2>
+      <ul class="habit-list">
+        <% @current_habits.each do |habit| %>
+          <li class="habit-item">
+            <strong>Name:</strong> <%= habit.name %><br>
+            <strong>Description:</strong> <%= habit.description %><br>
+            <strong>Duration:</strong> <%= habit.duration %><br>
+            <%= link_to 'Reminders', habit_reminders_path(habit), class: 'btn btn-info' %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No current habits yet.</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>No current habits yet.</p>
-<% end %>
+  </section>
 
+  <section class="calendar-section">
+    <%= month_calendar events: @habits do |date, habits| %>
+      <div class="calendar-date">
+        <strong><%= date %></strong>
+        <% habits.each do |habit| %>
+          <div class="calendar-habit">
+            <%= habit.name %> 
+            <% habit.reminders.each do |reminder| %>
+              <span class="reminder-info"><%= "#{habit.name} - #{reminder.name}" %></span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+</div>
+
+</body>
+</html>

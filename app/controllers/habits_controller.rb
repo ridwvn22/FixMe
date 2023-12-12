@@ -5,13 +5,29 @@ class HabitsController < ApplicationController
     before_action :set_habit, only: [:show, :edit, :update, :destroy]
   
     def index
-      @new_habits = Habit.where(status: :new_habit)
-      @current_habits = Habit.where(status: :current)
-      @habits = Habit.all
+        @habits = current_user.habits
+        @reminders = current_user.habits.joins(:reminders)
+
+        @new_habits = Habit.where(status: :new_habit)
+        @current_habits = Habit.where(status: :current)
+        @habits = Habit.all_habits
+        @events = @habits.map { |habit| { title: habit.name, start: habit.duration } }
+
+        puts '...............................'
+        puts "Events: #{@events.inspect}"
+
+      respond_to do |format|
+        format.html
+        format.json { render json: @events }
+      end
     end
   
    def show
-     @habit = Habit.find(params[:id])
+    @habit = Habit.find(params[:id])
+    @log = Log.new 
+    @reminder = Reminder.new
+    @habit_events = @habit.events
+    @date = params[:start_date] ? Date.parse(params[:start_date]) : Date.today
 
       chart_configuration = {
         type: 'bar',
@@ -49,15 +65,21 @@ class HabitsController < ApplicationController
     end
   
     def create
-      @habit = current_user.habits.build(habit_params)
-
-      if @habit.save
-        redirect_to @habit, notice: 'Habit was created.'
-      else
-        render :new
+        @habit = current_user.habits.build(habit_params)
+      
+        if @habit.save
+          # You can access the values like this:
+          calendar_type = params[:habit][:calendar_type]
+          calendar_date = params[:habit][:calendar_date]
+      
+          # Now, you can use these values as needed.
+          
+          redirect_to @habit, notice: 'Habit was created.'
+        else
+          render :new
+        end
       end
-    end
-  
+      
     def update
       if @habit.update(habit_params)
         redirect_to @habit, notice: 'Habit was updated.'
@@ -70,27 +92,32 @@ class HabitsController < ApplicationController
       @habit.destroy
       redirect_to habits_path, notice: 'Habit was deleted.'
     end
-
+  
     def mark_as_current
         @habit = Habit.find(params[:id])
-    
-        if @habit.update(status: :current)
-          redirect_to habits_path, notice: 'This habit is now a current habit.'
-        else
-          redirect_to habits_path, alert: 'You have failed to update habit status.'
-        end
+        @habit.update(status: :current)
+        redirect_to habits_path, notice: 'Habit marked as current.'
       end
   
+    def calendars
+        @habit = Habit.find(params[:id])
+        @events = @habit.events
+        @all_habits = current_user.habits
+    end
+end
+
     private
+  
+    def habit_events
+      (current_user.habits + current_user.habits.joins(:reminders)).map(&:to_event)
+    end
   
     def set_habit
       @habit = Habit.find(params[:id])
     end
   
     def habit_params
-      params.require(:habit).permit(:name, :description, :duration, :status)
+        params.require(:habit).permit(:name, :description, :duration, :status, :calendar_date)
     end
-  end
-  
   
   

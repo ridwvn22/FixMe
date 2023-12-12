@@ -1,0 +1,27 @@
+<%= month_calendar events: @events do |date, events| %>
+    <%= date %>
+    <% events.each do |event| %>
+      <% if event.is_a?(Hash) %>
+        <%= event[:title] %> - <%= event[:start] %> <!-- Display other event properties as needed -->
+      <% else %>
+        <%= event.name %> - <%= event.start_time %> <!-- Display other event properties as needed -->
+      <% end %>
+    <% end %>
+  
+    <!-- Display habits for the current date -->
+    <% if @all_habits.present? %>
+      <% @habits_on_date = @all_habits.select { |habit| habit.start_time.to_date == date } %>
+      <% @habits_on_date.each do |habit| %>
+        <%= habit.name %> <!-- Display other habit properties as needed -->
+      <% end %>
+    <% end %>
+  
+    <!-- Display reminders for the current date -->
+    <% if @all_reminders.present? %>
+      <% @reminders_on_date = @all_reminders.select { |reminder| reminder.start_time.to_date == date } %>
+      <% @reminders_on_date.each do |reminder| %>
+        <%= reminder.name %> <!-- Display other reminder properties as needed -->
+      <% end %>
+    <% end %>
+  <% end %>
+  

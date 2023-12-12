@@ -1,10 +1,18 @@
-<h1>WELCOME TO FixMe</h1>
-<% if user_signed_in?%>
-    Welcome, <%= current_user.username%>! </div>
-  <%=button_to "Sign out", destroy_user_session_path, method: :delete%>
-  <%= link_to 'View My Habits', habits_path %>
-  <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FChicago&src=cmRhaGlycmlAZ21haWwuY29t&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=Y19jbGFzc3Jvb204MmUyYmJmM0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%2333B679&color=%230B8043&color=%23c26401" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<h1>FixMe</h1>
 
-<% else %>
-  <%= button_to "Sign in", new_user_session_path%>
-<% end %>
+<div class="container">
+  <p class="welcome-message">Welcome to FixMe: Your personalized habit tracker for a happier life, empowering you to take control of your routines and achieve your goals with ease. Explore the Habits page to seamlessly track your daily activities. Set reminders to stay on top of your habits, view your progress on the Calendar, and keep a detailed log of your journey. FixMe is here to empower you every step of the way.</p>
+  
+</div>
+
+</body>
+</html>
+
+
+
+

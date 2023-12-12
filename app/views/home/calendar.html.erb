@@ -1,0 +1,4 @@
+<%= full_calendar(events: @habits + @reminders, event_start: 'start_time', event_end: 'end_time') %>
+
+<%= link_to 'Back to Habits', habits_path %>
+<%= link_to 'Back to Reminders', habit_reminders_path %>

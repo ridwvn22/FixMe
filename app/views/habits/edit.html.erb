@@ -1,5 +1,10 @@
 <h1>Edit Habit</h1>
 
+<%= form_for @habit do |form| %>
+    <%= form.submit %>
+  <% end %>
+  
+
 <%= render 'form', habit: @habit %>
 
 <%= link_to 'Back', habits_path %>
