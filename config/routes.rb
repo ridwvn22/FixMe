@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :habits do
     resources :reminders
     resources :logs, only: [:new, :create, :index, :edit, :update, :destroy]
-    resources :calendars, only: [:create_habit]
+    resources :calendars, only: [:create]
 
     member do
       post 'mark_as_current'
@@ -20,5 +20,5 @@ Rails.application.routes.draw do
     end
   end
 
-  #  resources :calendars, only: [:create_habit]
+  #  resources :calendars, only: [:create]
 end

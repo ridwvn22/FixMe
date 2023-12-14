@@ -1,9 +1,5 @@
 <%= form_with model: [@habit, @reminder] do |form| %>
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
+ 
   <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description %>

@@ -1,5 +1,6 @@
 class Reminder < ApplicationRecord
     belongs_to :habit
+    belongs_to :user
   
   
     enum frequency: {
@@ -7,7 +8,6 @@ class Reminder < ApplicationRecord
       afternoon: 'Afternoon',
       evening: 'Evening'
     }
-    validates :name, presence: true
     has_one :calendar, as: :eventable
   end
   

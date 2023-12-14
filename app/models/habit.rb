@@ -13,7 +13,6 @@ class Habit < ApplicationRecord
     has_one :calendar, as: :eventable
   
     validates :name, presence: true
-    validates :date, presence: true
 
     def events
         [

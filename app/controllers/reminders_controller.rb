@@ -14,10 +14,15 @@ class RemindersController < ApplicationController
     end
   
     def create
-        @reminder = @habit.reminders.new(reminder_params)
+        # @reminder = @habit.reminders.new(reminder_params)
+        @habit = Habit.find(params[:habit_id])
+        @reminder = @habit.reminders.build(reminder_params)
+        @reminder.user = current_user
+      
         if @reminder.save
           redirect_to habit_reminder_path(@habit, @reminder), notice: 'Reminder was created.'
         else
+            puts @reminder.errors.full_messages
           render :new
         end
       end
@@ -50,7 +55,7 @@ class RemindersController < ApplicationController
     end
   
     def reminder_params
-      params.require(:reminder).permit(:name, :frequency, :habit_id, :calendar_date, :description)
+      params.require(:reminder).permit(:user_id, :frequency, :habit_id, :calendar_date, :description)
     end
   end
   

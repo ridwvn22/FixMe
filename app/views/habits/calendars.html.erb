@@ -1,16 +1,20 @@
-<%= month_calendar events: @events do |date, events| %>
-    <%= date %>
-    <% events.each do |event| %>
-      <% if event.is_a?(Hash) %>
-        <%= event[:title] %> - <%= event[:start] %> <!-- Display other event properties as needed -->
-      <% else %>
-        <%= event.name %> - <%= event.start_time %> <!-- Display other event properties as needed -->
+<%= month_calendar events: @habits do |date, habits| %>
+    <div class="calendar-date">
+      <strong><%= date %></strong>
+  
+      <% habits.each do |habit| %>
+        <div class="calendar-habit">
+          <%= habit.name %>
+  
+          <% habit.reminders.each do |reminder| %>
+            <span class="reminder-info"><%= "#{habit.name} - #{reminder.description}" %></span>
+          <% end %>
+        </div>
       <% end %>
-    <% end %>
   
     <!-- Display habits for the current date -->
     <% if @all_habits.present? %>
-      <% @habits_on_date = @all_habits.select { |habit| habit.start_time.to_date == date } %>
+      <% @habits_on_date = @all_habits.select { |habit| habit.created_at.to_date == date } %>
       <% @habits_on_date.each do |habit| %>
         <%= habit.name %> <!-- Display other habit properties as needed -->
       <% end %>
@@ -18,10 +22,16 @@
   
     <!-- Display reminders for the current date -->
     <% if @all_reminders.present? %>
-      <% @reminders_on_date = @all_reminders.select { |reminder| reminder.start_time.to_date == date } %>
+      <% @reminders_on_date = @all_reminders.select { |reminder| reminder.created_at.to_date == date } %>
       <% @reminders_on_date.each do |reminder| %>
-        <%= reminder.name %> <!-- Display other reminder properties as needed -->
+        <%= reminder.description %> <!-- Display other reminder properties as needed -->
       <% end %>
     <% end %>
   <% end %>
+
+  <%= link_to 'Calendar', calendars_habit_path %>
+  <%= link_to 'Add Habit', new_habit_path %>
+  <%= link_to 'Add Reminder', habit_reminder_path(@habit) %>
+  
+ 
   

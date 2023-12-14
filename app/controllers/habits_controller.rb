@@ -64,21 +64,35 @@ class HabitsController < ApplicationController
       @habit = Habit.new
     end
   
-    def create
+
+      def create
         @habit = current_user.habits.build(habit_params)
-      
+
         if @habit.save
-          # You can access the values like this:
-          calendar_type = params[:habit][:calendar_type]
-          calendar_date = params[:habit][:calendar_date]
-      
-          # Now, you can use these values as needed.
-          
-          redirect_to @habit, notice: 'Habit was created.'
+          redirect_to habit_path(@habit)
+
         else
-          render :new
+          render :new, status: :unprocessable_entity
         end
       end
+
+
+
+    # def create
+    #     @habit = current_user.habits.build(habit_params)
+      
+    #     if @habit.save
+    #       # You can access the values like this:
+    #       calendar_type = params[:habit][:calendar_type]
+    #       calendar_date = params[:habit][:calendar_date]
+      
+    #       # Now, you can use these values as needed.
+          
+    #       redirect_to @habit, notice: 'Habit was created.'
+    #     else
+    #       render :new
+    #     end
+    #   end
       
     def update
       if @habit.update(habit_params)
@@ -103,6 +117,7 @@ class HabitsController < ApplicationController
         @habit = Habit.find(params[:id])
         @events = @habit.events
         @all_habits = current_user.habits
+        @all_reminders = current_user.reminders
     end
 end
 
@@ -117,7 +132,7 @@ end
     end
   
     def habit_params
-        params.require(:habit).permit(:name, :description, :duration, :status, :calendar_date)
+        params.require(:habit).permit(:name, :description, :duration, :status)
     end
   
   

@@ -1,11 +1,22 @@
 class CalendarsController < ApplicationController
     def index
         render plain: 'Hello, Calendars!'
+        @habits = Habit.all
+    end
+
+    def new
+      @habit = Habit.find(params[:id])
     end
     
-    def create_habit
-      @habit = Habit.create(habit_params)
+    def create
+      @habit = Habit.new(habit_params)
+      puts params.inspect
       @habit.create_calendar(title: 'Habit Event', start_time: @habit.date, end_time: @habit.date + 1.hour)
+      if @habit.save
+        redirect_to @habit
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
   
     def create_reminder

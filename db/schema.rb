@@ -43,16 +43,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_07_194606) do
 
   create_table "reminders", force: :cascade do |t|
     t.string "frequency"
-    t.string "name"
     t.string "description"
     t.string "calendar_date"
     t.bigint "habit_id", null: false
+    t.bigint "user_id", null: false
     t.string "calendar_type"
     t.bigint "calendar_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_type", "calendar_id"], name: "index_reminders_on_calendar"
     t.index ["habit_id"], name: "index_reminders_on_habit_id"
+    t.index ["user_id"], name: "index_reminders_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -74,4 +75,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_07_194606) do
   add_foreign_key "logs", "habits"
   add_foreign_key "logs", "users"
   add_foreign_key "reminders", "habits"
+  add_foreign_key "reminders", "users"
 end
