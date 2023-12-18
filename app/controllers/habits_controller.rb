@@ -10,6 +10,7 @@ class HabitsController < ApplicationController
 
         @new_habits = Habit.where(status: :new_habit)
         @current_habits = Habit.where(status: :current)
+        
         @habits = Habit.all_habits
         @events = @habits.map { |habit| { title: habit.name, start: habit.duration } }
 
