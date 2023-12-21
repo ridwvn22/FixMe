@@ -46,7 +46,7 @@
   <section class="calendar-section">
     <%= month_calendar events: @habits do |date, habits| %>
       <div class="calendar-date">
-      <strong><%= date.to_date.strftime('%Y-%m-%d') %></strong>
+      <strong><%= date.respond_to?(:to_date) ? date.to_date.strftime('%Y-%m-%d') : date.strftime('%Y-%m-%d') %></strong>
         <% habits.each do |habit| %>
           <div class="calendar-habit">
             <%= habit.name %> 
