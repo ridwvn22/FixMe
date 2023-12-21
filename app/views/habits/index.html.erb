@@ -43,21 +43,36 @@
     <% end %>
   </section>
 
-  <section class="calendar-section">
-    <%= month_calendar events: @habits do |date, habits| %>
-      <div class="calendar-date">
-      <strong><%= date.strftime('%Y-%m-%d') %></strong>
-        <% habits.each do |habit| %>
-          <div class="calendar-habit">
-            <%= habit.name %> 
-            <% habit.reminders.each do |reminder| %>
-              <span class="reminder-info"><%= "#{habit.name} - #{reminder.frequency}" %></span>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+  <%= month_calendar events: @habits do |date, habits| %>
+    <div class="calendar-date">
+      <strong><%= date %></strong>
+  
+      <% habits.each do |habit| %>
+        <div class="calendar-habit">
+          <%= habit.name %>
+  
+          <% habit.reminders.each do |reminder| %>
+            <span class="reminder-info"><%= "#{habit.name} - #{reminder.description}" %></span>
+          <% end %>
+        </div>
+      <% end %>
+  
+    <!-- Display habits for the current date -->
+    <% if @all_habits.present? %>
+      <% @habits_on_date = @all_habits.select { |habit| habit.created_at.to_date == date } %>
+      <% @habits_on_date.each do |habit| %>
+        <%= habit.name %> <!-- Display other habit properties as needed -->
+      <% end %>
     <% end %>
-  </section>
+  
+    <!-- Display reminders for the current date -->
+    <% if @all_reminders.present? %>
+      <% @reminders_on_date = @all_reminders.select { |reminder| reminder.created_at.to_date == date } %>
+      <% @reminders_on_date.each do |reminder| %>
+        <%= reminder.description %> <!-- Display other reminder properties as needed -->
+      <% end %>
+    <% end %>
+  <% end %>
 </div>
 </body>
 </html>
