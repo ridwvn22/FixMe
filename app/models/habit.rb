@@ -30,6 +30,9 @@ class Habit < ApplicationRecord
         url: Rails.application.routes.url_helpers.habit_path(self),
       }
     end
+
+    def to_date
+    end
   
     def start_time
       duration
