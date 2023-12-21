@@ -32,6 +32,7 @@ class Habit < ApplicationRecord
     end
 
     def to_date
+      duration.to_date
     end
   
     def start_time
